@@ -19,6 +19,8 @@ public class ApplicationConfig {
     @Autowired
     UsuarioRepository repository;
 
+    @Autowired
+
 
     //TODO Forma de implementção do UserDetailsService via Bean
     @Bean
@@ -36,7 +38,7 @@ public class ApplicationConfig {
     }
 
     @Bean
-    private PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

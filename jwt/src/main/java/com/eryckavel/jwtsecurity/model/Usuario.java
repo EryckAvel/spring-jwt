@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Builder
+
 @Entity
 @Table(name = "tb_usuario")
 public class Usuario implements UserDetails {

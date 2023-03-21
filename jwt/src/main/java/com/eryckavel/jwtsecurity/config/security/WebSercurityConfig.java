@@ -28,7 +28,8 @@ public class WebSercurityConfig {
                 .disable()
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST,"/auth/cadastrar").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .anyRequest().permitAll()
                 )
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

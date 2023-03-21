@@ -8,6 +8,9 @@ import com.eryckavel.jwtsecurity.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +19,8 @@ public class AuthService {
     @Autowired
     UsuarioRepository repository;
 
+    @Autowired
+    AuthenticationManager manager;
     @Autowired
     JwtService jwt;
 
@@ -27,8 +32,17 @@ public class AuthService {
         return ResponseEntity.status(HttpStatus.CREATED).body(new TokenDTO(token));
     }
 
-    public TokenDTO login(LoginDTO dto) {
-        return null;
+    public ResponseEntity<TokenDTO> login(LoginDTO dto) {
+        manager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        dto.getLogin(),
+                        dto.getSenha()
+                )
+        );
+        var usuario = repository.buscarLogin(dto.getLogin())
+                .orElseThrow();
+        var token = jwt.gerarToken(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new TokenDTO(token));
     }
 
     private void copiarDTOparaEntidade(Usuario entidade, UsuarioDTO dto) {

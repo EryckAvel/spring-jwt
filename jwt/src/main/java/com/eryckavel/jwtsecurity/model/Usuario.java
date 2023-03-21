@@ -6,6 +6,7 @@ import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collection;
 import java.util.List;
@@ -26,8 +27,6 @@ public class Usuario implements UserDetails {
     private String login;
     @Column(name = "senha", nullable = false, length = 80)
     private String senha;
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
     public Usuario(){
     }
@@ -77,12 +76,13 @@ public class Usuario implements UserDetails {
     }
 
     public void setSenha(String senha) {
-        this.senha = senha;
+        this.senha = new BCryptPasswordEncoder().encode(senha);
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return null;
     }
 
     @Override

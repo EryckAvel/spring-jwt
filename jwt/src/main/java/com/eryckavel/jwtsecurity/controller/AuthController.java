@@ -23,9 +23,9 @@ public class AuthController {
         return service.cadastro(dto);
     }
 
-    @PostMapping("/autenticar")
+    @PostMapping("/login")
     public ResponseEntity<TokenDTO> autenticar(@RequestBody LoginDTO dto){
-        return ResponseEntity.ok(service.login(dto));
+        return service.login(dto);
     }
 
 }

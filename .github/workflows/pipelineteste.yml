@@ -30,7 +30,7 @@ jobs:
           username: ${{secrets.DOCKERUSERNAME}}
           password: ${{secrets.DOCKERPASSWORD}}
 
-       - name: Build and push Docker image
+      - name: Build and push Docker image
         env:
           username: ${{secrets.DOCKERUSERNAME}}
           password: ${{secrets.DOCKERPASSWORD}}

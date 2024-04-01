@@ -24,12 +24,11 @@ public class AuthService {
     @Autowired
     JwtService jwt;
 
-    public ResponseEntity<TokenDTO> cadastro(UsuarioDTO dto) {
+    public ResponseEntity<Usuario> cadastro(UsuarioDTO dto) {
         Usuario usuario = new Usuario();
         copiarDTOparaEntidade(usuario, dto);
         usuario = repository.save(usuario);
-        var token = jwt.gerarToken(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new TokenDTO(token));
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
     }
 
     public ResponseEntity<TokenDTO> login(LoginDTO dto) {

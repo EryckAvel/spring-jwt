@@ -3,6 +3,7 @@ package com.eryckavel.jwtsecurity.controller;
 import com.eryckavel.jwtsecurity.dto.LoginDTO;
 import com.eryckavel.jwtsecurity.dto.TokenDTO;
 import com.eryckavel.jwtsecurity.dto.UsuarioDTO;
+import com.eryckavel.jwtsecurity.model.Usuario;
 import com.eryckavel.jwtsecurity.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class AuthController {
     AuthService service;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<TokenDTO> login(@RequestBody UsuarioDTO dto){
+    public ResponseEntity<Usuario> login(@RequestBody UsuarioDTO dto){
         return service.cadastro(dto);
     }
 

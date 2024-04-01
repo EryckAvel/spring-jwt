@@ -16,7 +16,7 @@ jobs:
           java-version: 17
 
       - name: buildmaven
-        run: mvn clean install -DskipTests
+        run: mvn clean package -DskipTests
 
       - name: Build Docker Image
         run: docker run -d --name jwt-conteiner -p 8080:8181 jwt

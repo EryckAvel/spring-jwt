@@ -35,6 +35,6 @@ jobs:
           username: ${{secrets.DOCKERUSERNAME}}
           password: ${{secrets.DOCKERPASSWORD}}
         run: |
-          docker buildx build --platform linux/amd64 -t $username/nome_da_imagem:latest .
+          docker buildx build --platform linux/amd64 -t $username/jwt:latest .
           docker login -u $username -p $password
           docker push $username/jwt:latest

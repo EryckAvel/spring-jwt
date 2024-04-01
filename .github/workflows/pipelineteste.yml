@@ -7,7 +7,7 @@ on:
 jobs:
   mainpipeline:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Standard Checkout
@@ -26,6 +26,12 @@ jobs:
         with:
           username: ${{secrets.DOCKERUSERNAME}}
           password: ${{secrets.DOCKERPASSWORD}}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: eryckavel/jwt:latest
           
       - name: Build Docker Container
         run: docker run -d --name jwt-conteiner -p 8080:8181 jwt

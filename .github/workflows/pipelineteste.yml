@@ -18,7 +18,7 @@ jobs:
           java-version: 17
 
       - name: Build project with Maven
-        run: mvn -B pacote --file pom.xml
+        run: mvn -B package --file pom.xml
 
       - name: Build Docker Image
         run: docker run -d --name jwt-conteiner -p 8080:8181 jwt

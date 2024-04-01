@@ -37,4 +37,4 @@ jobs:
         run: |
           docker buildx build --platform linux/amd64 -t ${{env.username}}/jwt:latest .
           docker login -u ${{env.username}} -p ${{env.password}}
-          docker push ${{env.username}}/jwt:latest
+          docker --push ${{env.username}}/jwt:latest

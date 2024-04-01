@@ -35,6 +35,6 @@ jobs:
           username: ${{secrets.DOCKERUSERNAME}}
           password: ${{secrets.DOCKERPASSWORD}}
         run: |
-          docker buildx build --platform linux/amd64 -t $username/jwt:latest .
-          docker login -u $username -p $password
-          docker push $username/jwt:latest
+          docker buildx build --platform linux/amd64 -t ${{secrets.DOCKERUSERNAME}}/jwt:latest .
+          docker login -u ${{secrets.DOCKERUSERNAME}} -p ${{secrets.DOCKERPASSWORD}}
+          docker push ${{secrets.DOCKERUSERNAME}}/jwt:latest

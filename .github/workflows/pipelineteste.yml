@@ -36,6 +36,6 @@ jobs:
             eryckavel/jwt:latest
 
       - name: Build Docker Containe
-        run: docker run -d --name jwt-conteiner -p 8181:8080 jwt
+        run: docker run -d --name jwt-conteiner -p 8181:8080 jwt:v1
         
             

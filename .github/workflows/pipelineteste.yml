@@ -32,10 +32,10 @@ jobs:
           context: .
           push: true
           tags: |
-            eryckavel/jwt:v1
             eryckavel/jwt:latest
+          pull: true
 
       - name: Build Docker Containe
-        run: docker run -d --name jwt-conteiner -p 8181:8080 jwt:v1
+        run: docker run -d --name jwt-conteiner -p 8181:8080 jwt:latest
         
             

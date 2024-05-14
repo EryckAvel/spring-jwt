@@ -32,7 +32,6 @@ jobs:
             mkdir -p ~/.ssh
             echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
-            scp -o StrictHostKeyChecking=no my-image.tar ${{ secrets.REMOTE_SERVER_USERNAME }}@${{ secrets.REMOTE_SERVER_ADDRESS }}
         
         - name: Load Docker image on remote server
           run: |

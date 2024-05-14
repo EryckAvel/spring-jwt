@@ -4,21 +4,28 @@ on:
       - main
 
 jobs:
-  mainpipeline:
+   deploy:
+      runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v2 
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+        - name: Build Docker image
+          run: docker build -t my-image:latest .
         
-      - name: Set up SSH key
-        run: |
-          env
-          mkdir -p ~/.ssh
-          echo "${{ secrets.ARTIFACT_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -p 22 ${{ secrets.ARTIFACT_HOST}} >> ~/.ssh/known_hosts
-          sudo apt-get install sshpass
+        - name: Save Docker image as tar file
+          run: docker save -o my-image.tar my-image:latest
 
+        - name: Transfer Docker image to remote server
+          run: |
+            mkdir -p ~/.ssh
+            echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
+            scp -o StrictHostKeyChecking=no my-image.tar ${{ secrets.REMOTE_SERVER_USERNAME }}@${{ secrets.REMOTE_SERVER_ADDRESS }}
         
+        - name: Load Docker image on remote server
+          run: |
+            ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_SERVER_USERNAME }}@${{ secrets.REMOTE_SERVER_ADDRESS }} << 'ENDSSH'
+            docker load -i my-image.tar
+            ENDSSH
